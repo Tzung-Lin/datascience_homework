@@ -1,5 +1,5 @@
 import random
-from build_dataset import create_dataset
+
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -63,8 +63,8 @@ def show_cluster(centroids, cluster_dict):
             # 画顶点
             plt.plot(node[0], node[1], color_mark[key])
             #plt.text(node[0], node[1], '1', ha='center', va='bottom', fontsize=10.5)
-    plt.xlabel('x')
-    plt.ylabel('y')
+    plt.xlabel('1/upload_times')
+    plt.ylabel('total score')
     plt.show()
 
 # 计算所有顶点和其质心的距离和作为损失函数
@@ -86,19 +86,3 @@ def get_variance(centroids, cluster_dict):
     return sum
 
 
-if __name__ == '__main__':
-    dataset = create_dataset(100)
-    print('初始数据集合:',dataset)
-    centroid_arr = random_choose_centroid(dataset, 7)
-    classify_result = classify_cluster(dataset, centroid_arr)
-    show_cluster(centroid_arr, classify_result)
-    old_var=1
-    new_var=get_variance(centroid_arr,classify_result)
-    while abs(new_var-old_var)>=0.00001:
-        centroid_arr=choose_new_centroid(classify_result)
-        classify_result=classify_cluster(dataset,centroid_arr)
-        old_var=new_var
-        new_var=get_variance(centroid_arr,classify_result)
-        show_cluster(centroid_arr,classify_result)
-    print('各聚类中心倒点：',centroid_arr)
-    print('聚类结果：',classify_result)

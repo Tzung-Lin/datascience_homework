@@ -42,11 +42,12 @@ normalized_case_total_score=case_total_score/(np.max(case_total_score))
 #normalized_case_total_score=case_total_score
 normalized_case_using_time=case_using_time/(np.max(case_using_time))
 
+dataset=[]
+for i in range(len(case_id_arr)):
+    dataset.append([normalized_case_upload_times_arr[i],normalized_case_total_score[i]])
 
-print(np.concatenate((normalized_case_upload_times_arr,normalized_case_total_score),axis=0))
-print(np.hstack((normalized_case_upload_times_arr,normalized_case_total_score)))
-dataset=np.reshape(np.concatenate((normalized_case_upload_times_arr,normalized_case_total_score),axis=0),(len(case_id_arr),2))
-
+#dataset=np.reshape(np.concatenate((normalized_case_upload_times_arr,normalized_case_total_score),axis=0),(len(case_id_arr),2))
+dataset=np.array(dataset)
 n=int(input("请输入分类数：(不超过7)"))
 centroid_arr = kmeans.random_choose_centroid(dataset, n)
 classify_result = kmeans.classify_cluster(dataset, centroid_arr)
